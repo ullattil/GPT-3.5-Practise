@@ -3,7 +3,7 @@ import openai
 import json
 import time
 
-openai.api_key = "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"
+openai.api_key = "OPENAI_API_KEY"
 
 ## Practising with response characteristics and quality
 # completion = openai.ChatCompletion.create(
@@ -87,9 +87,9 @@ openai.api_key = "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"
 response=openai.ChatCompletion.create(
     model = 'gpt-3.5-turbo',
     messages=[
-        {"role":"user","content":"Count to a hundred in Hindi, with new line after each number while also displaying their indo-numberic alphabet. Eg: 1: Hindiword for one (Ek)"}
+        {"role":"user","content":"Count to a ten in Russian, with new line after each number while also displaying their indo-numberic alphabet. Eg: 1: Russianword for one (pronounciation)"}
     ],
-    temperature=0.1,
+    temperature=0,
     stream=True
 )
 
@@ -116,4 +116,9 @@ for chunk in response:
     collected_chunks.append(chunk)
     chunk_message=chunk['choices'][0]['delta']
     collected_messages.append(chunk_message)
-    print(chunk_message.content,end="")
+    try:
+       print(chunk_message.content,end="")
+    except AttributeError:
+        pass
+            
+
